@@ -1,0 +1,7 @@
+node_modules/
+game/script/
+.DS_Store
+Thumbs.db
+
+# 公開後に削除
+package-lock.json
