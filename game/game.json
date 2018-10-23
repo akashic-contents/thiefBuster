@@ -978,5 +978,13 @@
 	"moduleMainScripts": {
 		"@akashic-extension/akashic-animation": "node_modules/@akashic-extension/akashic-animation/lib/index.js",
 		"@akashic-extension/akashic-timeline": "node_modules/@akashic-extension/akashic-timeline/lib/index.js"
+	},
+	"environment": {
+		"niconico": {
+			"supportedModes": [
+				"single",
+				"ranking"
+			]
+		}
 	}
 }
