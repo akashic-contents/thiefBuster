@@ -24,6 +24,8 @@ const LAUNCH_TYPE_SELF_STRING: string = "self";
 const LAUNCH_TYPE_LOTTERY_STRING: string = "lottery";
 /** 起動方法のみんなでプレイを判定する文字列 */
 const LAUNCH_TYPE_RANKING_STRING: string = "ranking";
+/** ゲームシーン以外のシーンで消費する時間 */
+const TIME_EXPECT_GAME_SCENE = 32;
 
 /**
  * 共通パラメータの読み込みクラス
@@ -40,7 +42,7 @@ export class CommonParameterReader {
 	static nicowari: boolean;
 	/** trueの場合は gameTimeLimit の値を使用するフラグ */
 	static useGameTimeLimit: boolean;
-	/** RireGameParameters.gameTimeLimit に相当する値 */
+	/** RireGameParameters.totalTimeLimit に相当する値 */
 	static gameTimeLimit: number;
 	/** trueの場合はゲームが許容する最大の制限時間の値を使用するフラグ */
 	static useGameTimeMax: boolean;
@@ -64,7 +66,7 @@ export class CommonParameterReader {
 		this.initialScene = "";
 		this.isInitialSceneGame = false;
 		this.muteAudio = false;
-		this.nicowari = true;
+		this.nicowari = false;
 		this.useGameTimeLimit = false;
 		this.gameTimeLimit = 0;
 		this.useGameTimeMax = false;
@@ -91,11 +93,15 @@ export class CommonParameterReader {
 			this.muteAudio = parameters.muteAudio;
 		}
 		// console.log("read: muteAudio:" + this.muteAudio + ".");
-		if (typeof parameters.gameTimeLimit === "number") {
+		if (typeof parameters.totalTimeLimit === "number") {
 			this.useGameTimeLimit = true;
-			this.gameTimeLimit = <number>parameters.gameTimeLimit;
+			// totalTimeLimitはゲーム全体で使う時間なのでゲームシーン以外で消費する時間分引く必要がある
+			this.gameTimeLimit = <number>parameters.totalTimeLimit - TIME_EXPECT_GAME_SCENE;
+			if (this.gameTimeLimit < 0) {
+				this.gameTimeLimit = 0;
+			}
 			this.useGameTimeMax = false;
-		} else if (typeof parameters.gameTimeLimit === "boolean") {
+		} else if (typeof parameters.totalTimeLimit === "boolean") {
 			// booleanの場合に許容される値はfalseのみ
 			this.useGameTimeLimit = false;
 			this.useGameTimeMax = true;
