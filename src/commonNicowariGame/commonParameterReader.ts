@@ -42,7 +42,7 @@ export class CommonParameterReader {
 	static nicowari: boolean;
 	/** trueの場合は gameTimeLimit の値を使用するフラグ */
 	static useGameTimeLimit: boolean;
-	/** RireGameParameters.totalTimeLimit に相当する値 */
+	/** ゲームの制限時間(RireGameParameters.totalTimeLimitからTIME_EXPECT_GAME_SCENEを引いた値) */
 	static gameTimeLimit: number;
 	/** trueの場合はゲームが許容する最大の制限時間の値を使用するフラグ */
 	static useGameTimeMax: boolean;
