@@ -44,8 +44,6 @@ export class CommonParameterReader {
 	static useGameTimeLimit: boolean;
 	/** ゲームの制限時間(RireGameParameters.totalTimeLimitからTIME_EXPECT_GAME_SCENEを引いた値) */
 	static gameTimeLimit: number;
-	/** trueの場合はゲームが許容する最大の制限時間の値を使用するフラグ */
-	static useGameTimeMax: boolean;
 	/** trueの場合は difficulty の値を使用するフラグ */
 	static useDifficulty: boolean;
 	/** RireGameParameters.difficulty に相当する値 */
@@ -69,7 +67,6 @@ export class CommonParameterReader {
 		this.nicowari = false;
 		this.useGameTimeLimit = false;
 		this.gameTimeLimit = 0;
-		this.useGameTimeMax = false;
 		this.useDifficulty = false;
 		this.difficulty = 1;
 		this.launchType = LaunchType.NOTHING;
@@ -96,15 +93,7 @@ export class CommonParameterReader {
 		if (typeof parameters.totalTimeLimit === "number") {
 			this.useGameTimeLimit = true;
 			// totalTimeLimitはゲーム全体で使う時間なのでゲームシーン以外で消費する時間分引く必要がある
-			this.gameTimeLimit = <number>parameters.totalTimeLimit - TIME_EXPECT_GAME_SCENE;
-			if (this.gameTimeLimit < 0) {
-				this.gameTimeLimit = 0;
-			}
-			this.useGameTimeMax = false;
-		} else if (typeof parameters.totalTimeLimit === "boolean") {
-			// booleanの場合に許容される値はfalseのみ
-			this.useGameTimeLimit = false;
-			this.useGameTimeMax = true;
+			this.gameTimeLimit = Math.max(0, <number>parameters.totalTimeLimit - TIME_EXPECT_GAME_SCENE);
 		}
 		// console.log("read: useGameTimeLimit:" + this.useGameTimeLimit + ", gameTimeLimit:" + this.gameTimeLimit + ".");
 		// console.log("read: useGameTimeMax:" + this.useGameTimeMax + ".");

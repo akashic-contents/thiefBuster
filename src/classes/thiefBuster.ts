@@ -300,8 +300,6 @@ export class ThiefBuster extends GameBase {
 			if (timeLimit > define.GAME_TIME_MAX) {
 				timeLimit = define.GAME_TIME_MAX;
 			}
-		} else if (CommonParameterReader.useGameTimeMax) {
-			timeLimit = define.GAME_TIME_MAX;
 		}
 		this.timerLabel.setTimeCount(timeLimit);
 		this.timerLabel.timeCaution.handle(this, this.onTimeCaution);
