@@ -31,11 +31,11 @@
     "index.js"
   ],
   "devDependencies": {
-    "@akashic/akashic-cli": "~1.3.0",
+    "@akashic/akashic-cli": "~2.9.1",
     "@akashic/akashic-engine": "~1.12.5",
     "@akashic/akashic-sandbox": "~0.13.3",
-    "@types/node": "7.0.28",
     "@types/lodash": "4.14.110",
+    "@types/node": "7.0.28",
     "jasmine": "~2.1.1",
     "rimraf": "^3.0.2",
     "tslint": "~5.9.1",
