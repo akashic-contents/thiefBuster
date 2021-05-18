@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "noLib": true,
+    "lib": ["es5", "esnext.asynciterable"],
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": false,
     "removeComments": false,
@@ -10,8 +10,12 @@
     "outDir": "./game/script",
     "noUnusedLocals": true
   },
+  "files": [
+    "./node_modules/@akashic/akashic-engine/lib/main.d.ts",
+    "./node_modules/@akashic-extension/akashic-animation/lib/@akashic-extension/akashic-animation.d.ts",
+    "./node_modules/@akashic-extension/akashic-timeline/lib/index.d.ts"
+  ],
   "include": [
-    "./typings/**/*.ts",
     "./src/**/*.ts"
   ],
   "exclude": [
