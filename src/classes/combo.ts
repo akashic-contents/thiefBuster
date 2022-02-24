@@ -53,9 +53,9 @@ export class Combo {
 			defaultText,
 			_font,
 			_digit,
-			g.TextAlign.Left
+			"left"
 		);
-		this.label.update.handle((): void => {
+		this.label.onUpdate.add((): void => {
 			entityUtil.setLabelText(this.label, String(this.comboNum));
 		});
 
@@ -70,11 +70,10 @@ export class Combo {
 		const attachCombo: asaEx.EntityAttachment = new asaEx.EntityAttachment(this.label);
 		this.actor.attach(attachCombo, _pivot); // コンボアニメにラベルをアタッチ
 
-		this.actor.update.handle(this.actor, (): boolean => {
+		this.actor.onUpdate.add(() => {
 			this.actor.modified();
 			this.actor.calc();
-			return false;
-		});
+		}, this.actor);
 	}
 
 	/**

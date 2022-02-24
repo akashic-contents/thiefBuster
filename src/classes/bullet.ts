@@ -60,7 +60,7 @@ export class Bullet {
 		this.spr.modified();
 		this.life = _level; // 生成時のレベルに応じてライフを設定
 		// 周りの状況に限らずアニメの更新と移動を行う
-		this.spr.update.handle(this, this.update);
+		this.spr.onUpdate.add(this.update, this);
 	}
 
 	/**

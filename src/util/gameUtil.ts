@@ -169,9 +169,12 @@ export namespace gameUtil {
 				height: frame.h
 			};
 		}
-		const font = new g.BitmapFont(
-			opt_assets[_info.img], glyphMap, _info.fontWidth,
-			_info.fontHeight, missingGlyph);
+		const font = new g.BitmapFont({
+			src: opt_assets[_info.img] as g.ImageAsset,
+			map: glyphMap,
+			defaultGlyphWidth: _info.fontWidth,
+			defaultGlyphHeight: _info.fontHeight, missingGlyph
+		});
 		return font;
 	}
 
@@ -310,9 +313,9 @@ export namespace gameUtil {
 	export function getRandomLessThanMax(
 		_max: number, opt_random?: g.RandomGenerator): number {
 		if (!opt_random) {
-			opt_random = g.game.random[0];
+			opt_random = g.game.random;
 		}
-		return (opt_random.get(0, (_max * 1000) - 1) / 1000) | 0;
+		return Math.floor(opt_random.generate() * _max);
 	}
 
 	/**
@@ -377,7 +380,7 @@ export namespace gameUtil {
 	 */
 	export function shuffle<T>(_array: Array<T>, opt_random?: g.RandomGenerator): Array<T> {
 		if (!opt_random) {
-			opt_random = g.game.random[0];
+			opt_random = g.game.random;
 		}
 		const copyArray = _array.slice();
 		let m: number = copyArray.length;

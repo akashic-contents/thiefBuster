@@ -75,7 +75,7 @@ export namespace spriteUtil {
 		}
 		const spriteParam: g.SpriteParameterObject = {
 			scene: opt_scene,
-			src: opt_scene.assets[_info.img]
+			src: opt_scene.assets[_info.img] as g.ImageAsset
 		};
 		return spriteParam;
 	}
@@ -102,7 +102,7 @@ export namespace spriteUtil {
 	 * @param _asset この画像に変更したい
 	 */
 	export function changeSpriteSurface(_sprite: g.Sprite, _asset: g.Asset): void {
-		_sprite.surface = (<g.ImageAsset>_asset).asSurface();
+		_sprite._surface = (<g.ImageAsset>_asset).asSurface();
 		_sprite.invalidate();
 	}
 

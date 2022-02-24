@@ -53,8 +53,7 @@ export class GameParameterReader {
 	 */
 	private static loadFromJson(_scene: g.Scene): void {
 		const difficultyJson: DifficultyParametersJson
-			= JSON.parse((<g.TextAsset>_scene
-				.assets[MiscAssetInfo.difficultyData.name]).data);
+			= JSON.parse(_scene.asset.getTextById(MiscAssetInfo.difficultyData.name).data);
 		const difficultyList: DifficultyParameter[]
 			= difficultyJson.difficultyParameterList;
 		if (difficultyList.length === 0) {

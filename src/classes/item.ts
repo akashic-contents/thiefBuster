@@ -90,7 +90,7 @@ export class Item {
 		);
 		entityUtil.appendEntity(this.spr, _parent);
 		// 周りの状況に限らずアニメの更新と自動消滅を行う
-		this.spr.update.handle(this, this.update);
+		this.spr.onUpdate.add(this.update, this);
 		// インスタンスは一つしか作らないのでshowとhideを繰り返す
 		entityUtil.hideEntity(this.spr);
 	}
@@ -127,12 +127,13 @@ export class Item {
 		if (_level >= define.BulletLevel.hammer) { // レベルがハンマー時は処理しない
 			return;
 		}
+		const randomX = Math.floor(
+			this.game.random.generate() * (define.POS_ITEM_POP_X_MAX - define.POS_ITEM_POP_X_MIN) + define.POS_ITEM_POP_X_MIN
+		);
+		const randomY = Math.floor(this.game.random.generate() * 3);
 		const pos: g.CommonOffset = {
-			x: this.game.random[0].get(
-				define.POS_ITEM_POP_X_MIN,
-				define.POS_ITEM_POP_X_MAX
-			),
-			y: this.popPositionListY[this.game.random[0].get(0, 2)]
+			x: randomX,
+			y: this.popPositionListY[randomY]
 		};
 		this.level = _level;
 		this.cntVanish = 0;

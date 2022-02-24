@@ -71,7 +71,8 @@ export class Score extends g.E {
 		entityUtil.moveNumLabelTo( // 1ケタ目左上へ移動
 			this.label,
 			_posStart.x,
-			_posStart.y
+			_posStart.y,
+			_font
 		);
 		// ラベル初期位置記憶
 		this.posLabelStart = { x: this.label.x, y: this.label.y };
@@ -89,7 +90,7 @@ export class Score extends g.E {
 	/**
 	 * ラベルテキストの更新
 	 */
-	onUpdate(): void {
+	onLabelUpdate(): void {
 		entityUtil.setLabelText(this.label, String(this.value));
 		this.animePlusScore();
 		if (this.value < 0) {
@@ -134,7 +135,7 @@ export class Score extends g.E {
 	 */
 	onFinishGame(): void {
 		this.mergeScore(); // 残ったスタックスコアを加算
-		this.onUpdate();
+		this.onLabelUpdate();
 		gameUtil.updateGameStateScore(this.value + this.stack);
 	}
 	/**

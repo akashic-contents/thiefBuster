@@ -77,7 +77,7 @@ export namespace audioUtil {
 		}
 		const asset: g.AudioAsset = <g.AudioAsset>opt_assets[_soundId];
 		if (!asset) {
-			g.game.logger.error("AudioUtil.inUse: not found " + _soundId + " in opt_assets.");
+			console.error("AudioUtil.inUse: not found " + _soundId + " in opt_assets.");
 			return false;
 		}
 		return asset.inUse();
@@ -103,14 +103,14 @@ export namespace audioUtil {
 		}
 		const asset: g.AudioAsset = <g.AudioAsset>opt_assets[_soundId];
 		if (!asset) {
-			g.game.logger.error("AudioUtil.play: not found " + _soundId + " in opt_assets.");
+			console.error("AudioUtil.play: not found " + _soundId + " in opt_assets.");
 			return null;
 		}
 		const info = getPlayingAudioInfo(asset);
 		if (info === null) {
-			playingAudioInfoList.push({ audioAsset: asset, lastPlayStartTime: Date.now() });
+			playingAudioInfoList.push({ audioAsset: asset, lastPlayStartTime: g.game.getCurrentTime() });
 		} else {
-			info.lastPlayStartTime = Date.now();
+			info.lastPlayStartTime = g.game.getCurrentTime();
 		}
 		return asset.play();
 	}
@@ -130,12 +130,12 @@ export namespace audioUtil {
 		}
 		const asset: g.AudioAsset = <g.AudioAsset>opt_assets[_soundId];
 		if (!asset) {
-			g.game.logger.error("AudioUtil.stop: not found " + _soundId + " in opt_assets.");
+			console.error("AudioUtil.stop: not found " + _soundId + " in opt_assets.");
 			return;
 		}
 		const info = getPlayingAudioInfo(asset);
 		if (info !== null) {
-			info.lastPlayStartTime = Date.now() - getDuration(_soundId) - 1; // 終了している時間に調整
+			info.lastPlayStartTime = g.game.getCurrentTime() - getDuration(_soundId) - 1; // 終了している時間に調整
 		}
 		asset.stop();
 	}
@@ -156,7 +156,7 @@ export namespace audioUtil {
 		}
 		const asset: g.AudioAsset = <g.AudioAsset>opt_assets[_soundId];
 		if (!asset) {
-			g.game.logger.error("AudioUtil.getDuration: not found " + _soundId + " in opt_assets.");
+			console.error("AudioUtil.getDuration: not found " + _soundId + " in opt_assets.");
 			return 0;
 		}
 		return asset.duration;
@@ -180,14 +180,14 @@ export namespace audioUtil {
 		}
 		const asset: g.AudioAsset = <g.AudioAsset>opt_assets[_soundId];
 		if (!asset) {
-			g.game.logger.error("AudioUtil.isPlaying: not found " + _soundId + " in opt_assets.");
+			console.error("AudioUtil.isPlaying: not found " + _soundId + " in opt_assets.");
 			return false;
 		}
 		const info = getPlayingAudioInfo(asset);
 		if (info === null) {
 			return false;
 		} else {
-			return (getDuration(_soundId) > (Date.now() - info.lastPlayStartTime));
+			return (getDuration(_soundId) > (g.game.getCurrentTime() - info.lastPlayStartTime));
 		}
 	}
 

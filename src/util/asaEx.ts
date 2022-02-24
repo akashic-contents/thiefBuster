@@ -62,9 +62,9 @@ export namespace asaEx {
 			_assets: { [key: string]: g.Asset },
 			_assetIds: string[]): void {
 			const ids: string[] = ResourceManager.getAssetIds(_pjNames, _assets);
-			// g.game.logger.debug("addAsaAssetIds: before: assetIds.length:"+assetIds.length+", pjNames.length:"+pjNames.length+".");
+			// console.debug("addAsaAssetIds: before: assetIds.length:"+assetIds.length+", pjNames.length:"+pjNames.length+".");
 			_assetIds.push.apply(_assetIds, ids);
-			// g.game.logger.debug("addAsaAssetIds: after: assetIds.length:"+assetIds.length+".");
+			// console.debug("addAsaAssetIds: after: assetIds.length:"+assetIds.length+".");
 		}
 		/**
 		 * asapjのアセット名配列から必要なファイルのアセット名の配列を生成する
@@ -81,7 +81,7 @@ export namespace asaEx {
 				const pjName = _pjNames[i];
 				// console.log("makeAnimBoneTable: pjNames["+i+"]:"+pjName+".");
 				if (!_assets[pjName]) {
-					g.game.logger.error("ResourceManager.getAssetIds: not found asapj:" + pjName + " in assets. Not set global option in game.json?");
+					console.error("ResourceManager.getAssetIds: not found asapj:" + pjName + " in assets. Not set global option in game.json?");
 					return null;
 				}
 				const pjJson = (<g.TextAsset>_assets[pjName]).data;
@@ -397,7 +397,7 @@ export namespace asaEx {
 			super();
 			this.entity = _entity;
 			this.matrix = opt_matrix || new g.PlainMatrix();
-			// g.game.logger.debug("ActorAttachment: matrix._matrix:["+this.matrix._matrix.join()+"].");
+			// console.debug("ActorAttachment: matrix._matrix:["+this.matrix._matrix.join()+"].");
 			this.cancelParentSR = false;
 		}
 
@@ -420,7 +420,7 @@ export namespace asaEx {
 				m0[4] = m1[0] * m2[4] + m1[2] * m2[5] + m1[4];
 				m0[5] = m1[1] * m2[4] + m1[3] * m2[5] + m1[5];
 				// ^^^ akashic-animation/lib/Skeleton.js より引用
-				// g.game.logger.debug("ActorAttachment.render: m0:["+m0.join()+"].");
+				// console.debug("ActorAttachment.render: m0:["+m0.join()+"].");
 				// vvv akashic-animation/sample/src/demo.ts より引用
 				const mi = invertMatrix(this.posture.m._matrix);
 				if (!mi) {
@@ -522,9 +522,9 @@ export namespace asaEx {
 	 */
 	function loadAnimBoneTable_(
 		_pjName: string, _assets: { [key: string]: g.Asset }): AnimBoneTable {
-		// g.game.logger.debug("AsaEx.loadAnimBoneTable: pjName:"+pjName+".");
+		// console.debug("AsaEx.loadAnimBoneTable: pjName:"+pjName+".");
 		if (!_assets[_pjName]) {
-			g.game.logger.error("AsaEx.loadAnimBoneTable: not found asapj:" + _pjName + " in assets.");
+			console.error("AsaEx.loadAnimBoneTable: not found asapj:" + _pjName + " in assets.");
 			return null;
 		}
 		let res: AnimBoneTable = null;
@@ -534,7 +534,7 @@ export namespace asaEx {
 			(!!pjData.contents.userData.combinationInfo)) {
 			res = makeAnimBoneTable_(pjData.contents.userData.combinationInfo);
 		} else {
-			g.game.logger.error("AsaEx.loadAnimBoneTable: not found combinationInfo in " + _pjName + ". Use -c option with ss2asa.");
+			console.error("AsaEx.loadAnimBoneTable: not found combinationInfo in " + _pjName + ". Use -c option with ss2asa.");
 		}
 		return res;
 	}
@@ -551,7 +551,7 @@ function setupColliderForCell_(
 				_bone.name, _info.boundType === "aabb");
 			break;
 		default:
-			g.game.logger.warn("Invalid type combination: " + _info.geometryType + ", " + _info.boundType);
+			console.warn("Invalid type combination: " + _info.geometryType + ", " + _info.boundType);
 			break;
 	}
 	return collider;
@@ -566,7 +566,7 @@ function setupColliderForCircle_(
 				_bone.name, _info.boundType === "aabb", _info.scaleOption);
 			break;
 		default:
-			g.game.logger.warn("Invalid type combination: " + _info.geometryType + ", " + _info.boundType);
+			console.warn("Invalid type combination: " + _info.geometryType + ", " + _info.boundType);
 			break;
 	}
 	return collider;
@@ -586,10 +586,10 @@ function setupCollider_(_bones: asa.Bone[], _actor: asa.Actor): void {
 					collider = setupColliderForCircle_(_info, _bone);
 					break;
 				case "box":
-					g.game.logger.warn("Not implemented geometory type " + _info.geometryType);
+					console.warn("Not implemented geometory type " + _info.geometryType);
 					break;
 				default:
-					g.game.logger.warn("Unknown geometory type " + _info.geometryType);
+					console.warn("Unknown geometory type " + _info.geometryType);
 					break;
 			}
 			if (collider) {
