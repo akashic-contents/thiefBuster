@@ -73,7 +73,7 @@ export class Combo {
 		this.actor.onUpdate.add(() => {
 			this.actor.modified();
 			this.actor.calc();
-		}, this.actor);
+		},                      this.actor);
 	}
 
 	/**
