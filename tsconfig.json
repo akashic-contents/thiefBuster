@@ -8,10 +8,11 @@
     "newLine": "LF",
     "module": "commonjs",
     "outDir": "./game/script",
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "allowUmdGlobalAccess": true
   },
   "files": [
-    "./node_modules/@akashic/akashic-engine/lib/main.d.ts"
+    "node_modules/@akashic/akashic-engine/index.runtime.d.ts"
   ],
   "include": [
     "./src/**/*.ts"
