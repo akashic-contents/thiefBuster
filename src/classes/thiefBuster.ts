@@ -366,7 +366,7 @@ export class ThiefBuster extends GameBase {
 	 * ゲーム画面でない期間には呼ばれない。
 	 * @override
 	 */
-	onUpdateGame(): void {
+	onUpdateScene(): void {
 		if (this.inGame) {
 			this.timerLabel.tick();
 			if (this.timerLabel.getTimeCount() === 0) {

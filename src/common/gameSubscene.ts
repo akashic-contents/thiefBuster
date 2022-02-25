@@ -119,7 +119,7 @@ export class GameSubscene extends Subscene {
 				this.startReady();
 			}
 		}
-		this.gameContent.onUpdateGame();
+		this.gameContent.onUpdateScene();
 	}
 
 	/**
