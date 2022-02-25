@@ -19,12 +19,8 @@ export class TimerLabel extends g.E {
 	private scaleLayer: g.E;
 	/** 数字表示ラベル(黒) */
 	private labelBlack: g.Label;
-	/** 数字表示ラベル(黒) の font */
-	private fontBlack: g.BitmapFont;
 	/** 数字表示ラベル(赤) */
 	private labelRed: g.Label;
-	/** 数字表示ラベル(黒) の font */
-	private fontRed: g.BitmapFont;
 	/** 点滅中フラグ */
 	private isBlinking_: boolean;
 	/** 残り時間[フレーム数] */
@@ -68,17 +64,17 @@ export class TimerLabel extends g.E {
 		this.remainFrameCount = 0;
 		this.currentCount = 0;
 
-		this.fontBlack = gameUtil.createNumFontWithAssetInfo(_numBlackInfo);
+		const fontBlack = gameUtil.createNumFontWithAssetInfo(_numBlackInfo);
 		const labelBlack = this.labelBlack = entityUtil.createNumLabel(
-			this.scene, this.fontBlack, define.GAME_TIMER_DIGIT);
+			this.scene, fontBlack, define.GAME_TIMER_DIGIT);
 		entityUtil.appendEntity(labelBlack, this);
 
 		const scaleLayer = this.scaleLayer = new g.E({ scene: this.scene });
 		entityUtil.appendEntity(scaleLayer, this);
 
-		this.fontRed = gameUtil.createNumFontWithAssetInfo(_numRedInfo);
+		const fontRed = gameUtil.createNumFontWithAssetInfo(_numRedInfo);
 		const labelRed = this.labelRed = entityUtil.createNumLabel(
-			this.scene, this.fontRed, define.GAME_TIMER_DIGIT);
+			this.scene, fontRed, define.GAME_TIMER_DIGIT);
 		entityUtil.appendEntity(labelRed, scaleLayer);
 
 		this.stopBlink();
@@ -96,12 +92,13 @@ export class TimerLabel extends g.E {
 
 		// 点滅時の拡大基準点
 		const label = this.labelBlack;
-		const pivotX = _x + (this.fontBlack.defaultGlyphWidth / 2);
-		const pivotY = _y + (this.fontBlack.defaultGlyphHeight / 2);
+		const font = label.font as g.BitmapFont;
+		const pivotX = _x + (font.defaultGlyphWidth / 2);
+		const pivotY = _y + (font.defaultGlyphHeight / 2);
 		entityUtil.setXY(this.scaleLayer, pivotX, pivotY);
 
 		// ラベルの左上
-		const labelX = _x + this.fontBlack.defaultGlyphWidth - label.width;
+		const labelX = _x + font.defaultGlyphWidth - label.width;
 		const labelY = _y;
 
 		entityUtil.setXY(this.labelBlack, labelX, labelY);

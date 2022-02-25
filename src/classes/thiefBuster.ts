@@ -100,9 +100,7 @@ export class ThiefBuster extends GameBase {
 
 		// 赤数字
 		const imgStgNum2 = this.scene.asset.getImageById(AssetInfo.numRed.img);
-		const jsonStgNum2: SpriteFrameMap = JSON.parse(
-			this.scene.asset.getTextById(AssetInfo.numRed.json).data
-		);
+		const jsonStgNum2: SpriteFrameMap = this.scene.asset.getJSONContentById(AssetInfo.numRed.json);
 		const stgNum2FrameNames: string[] = AssetInfo.numRed.numFrames;
 		const fontmapStgNum2: { [key: string]: g.GlyphArea } = gameUtil.makeGlyphMapFromFrames(
 			charCode0,
@@ -129,9 +127,7 @@ export class ThiefBuster extends GameBase {
 
 		// 青数字
 		const imgStgNum3 = this.scene.asset.getImageById(AssetInfo.numBlue.img);
-		const jsonStgNum3: SpriteFrameMap = JSON.parse(
-			this.scene.asset.getTextById(AssetInfo.numBlue.json).data
-		);
+		const jsonStgNum3: SpriteFrameMap = this.scene.asset.getJSONContentById(AssetInfo.numBlue.json);
 		const stgNum3FrameNames: string[] = AssetInfo.numBlue.numFrames;
 		const fontmapStgNum3: { [key: string]: g.GlyphArea } = gameUtil.makeGlyphMapFromFrames(
 			charCode0,

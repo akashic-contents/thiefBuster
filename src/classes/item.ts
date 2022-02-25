@@ -127,13 +127,11 @@ export class Item {
 		if (_level >= define.BulletLevel.hammer) { // レベルがハンマー時は処理しない
 			return;
 		}
-		const randomX = Math.floor(
-			this.game.random.generate() * (define.POS_ITEM_POP_X_MAX - define.POS_ITEM_POP_X_MIN) + define.POS_ITEM_POP_X_MIN
-		);
-		const randomY = Math.floor(this.game.random.generate() * 3);
 		const pos: g.CommonOffset = {
-			x: randomX,
-			y: this.popPositionListY[randomY]
+			x: Math.floor(
+				this.game.random.generate() * (define.POS_ITEM_POP_X_MAX - define.POS_ITEM_POP_X_MIN) + define.POS_ITEM_POP_X_MIN
+			),
+			y: this.popPositionListY[Math.floor(this.game.random.generate() * 3)]
 		};
 		this.level = _level;
 		this.cntVanish = 0;

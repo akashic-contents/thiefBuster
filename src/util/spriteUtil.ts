@@ -75,7 +75,7 @@ export namespace spriteUtil {
 		}
 		const spriteParam: g.SpriteParameterObject = {
 			scene: opt_scene,
-			src: opt_scene.assets[_info.img] as g.ImageAsset
+			src: opt_scene.asset.getImageById(_info.img)
 		};
 		return spriteParam;
 	}
