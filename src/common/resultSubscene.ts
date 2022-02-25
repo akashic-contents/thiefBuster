@@ -60,8 +60,7 @@ export class ResultSubscene extends Subscene {
 
 		this.scoreValue = 0;
 
-		const font = gameUtil.createNumFontWithAssetInfo(
-			CommonAssetInfo.numResult, this.scene.assets);
+		const font = gameUtil.createNumFontWithAssetInfo(CommonAssetInfo.numResult);
 		const score = this.scoreLabel = entityUtil.createNumLabel(
 			this.scene, font, commonDefine.RESULT_SCORE_DIGIT);
 		entityUtil.moveNumLabelTo(score, 320 + ((game.width - 480) / 2), 84 + this.offsetY, font);

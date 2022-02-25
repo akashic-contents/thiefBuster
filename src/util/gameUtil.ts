@@ -138,17 +138,10 @@ export namespace gameUtil {
 	/**
 	 * AssetInfoの情報からBitmapFontを生成する
 	 * @param _info   アセット情報
-	 * @param _assets (optional)g.Assetのマップ
-	 * （省略時はg.game.scene().assetsを使用する）
 	 * @return         生成したBitmapFont
 	 */
-	export function createNumFontWithAssetInfo(
-		_info: AssetInfoType, opt_assets?: AssetMapType): g.BitmapFont {
-		if (!opt_assets) {
-			opt_assets = g.game.scene().assets;
-		}
-		const frameMap: SpriteFrameMap = JSON.parse(
-			(<g.TextAsset>opt_assets[_info.json]).data);
+	export function createNumFontWithAssetInfo(_info: AssetInfoType): g.BitmapFont {
+		const frameMap: SpriteFrameMap = g.game.scene().asset.getJSONContentById(_info.json);
 		const glyphMap = gameUtil.makeGlyphMapFromFrames(
 			CHAR_CODE_0, CHAR_CODE_10, frameMap, _info.numFrames);
 		if (_info.nonnumFrames) {
@@ -170,7 +163,7 @@ export namespace gameUtil {
 			};
 		}
 		const font = new g.BitmapFont({
-			src: opt_assets[_info.img] as g.ImageAsset,
+			src: g.game.scene().asset.getImageById(_info.img),
 			map: glyphMap,
 			defaultGlyphWidth: _info.fontWidth,
 			defaultGlyphHeight: _info.fontHeight, missingGlyph
