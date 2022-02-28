@@ -245,12 +245,12 @@ export class GameSubscene extends Subscene {
 	private finishGame(_jingleAnimName: string): void {
 		audioUtil.stop(this.gameContent.getMainBgmName());
 		this.cautionFill.stopBlink();
-		this.gameContent.timeCaution.removeAll();
-		this.gameContent.timeCautionCancel.removeAll();
-		this.gameContent.timeup.removeAll();
-		this.gameContent.timeout.removeAll();
-		this.gameContent.gameClear.removeAll();
-		this.gameContent.gameOver.removeAll();
+		this.gameContent.timeCaution.removeAll({ owner: this });
+		this.gameContent.timeCautionCancel.removeAll({ owner: this });
+		this.gameContent.timeup.removeAll({ owner: this });
+		this.gameContent.timeout.removeAll({ owner: this });
+		this.gameContent.gameClear.removeAll({ owner: this });
+		this.gameContent.gameOver.removeAll({ owner: this });
 		this.asaJingle.play(_jingleAnimName, 0, false, 1, true);
 		entityUtil.showEntity(this.asaJingle);
 		audioUtil.play(CommonSoundInfo.seSet.timeup);

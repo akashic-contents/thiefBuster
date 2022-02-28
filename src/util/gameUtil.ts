@@ -166,7 +166,8 @@ export namespace gameUtil {
 			src: g.game.scene().asset.getImageById(_info.img),
 			map: glyphMap,
 			defaultGlyphWidth: _info.fontWidth,
-			defaultGlyphHeight: _info.fontHeight, missingGlyph
+			defaultGlyphHeight: _info.fontHeight,
+			missingGlyph
 		});
 		return font;
 	}

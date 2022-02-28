@@ -93,8 +93,8 @@ export namespace spriteUtil {
 	 * @param _sprite 変更したいスプライトオブジェクト
 	 * @param _asset この画像に変更したい
 	 */
-	export function changeSpriteSurface(_sprite: g.Sprite, _asset: g.Asset): void {
-		_sprite._surface = (<g.ImageAsset>_asset).asSurface();
+	export function changeSpriteSurface(_sprite: g.Sprite, _asset: g.ImageAsset): void {
+		_sprite.src = _asset;
 		_sprite.invalidate();
 	}
 
