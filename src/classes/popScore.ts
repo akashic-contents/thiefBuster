@@ -95,8 +95,9 @@ export class PopScore {
 		const label: g.Label = entityUtil.createNumLabel(this.scene, font, this.digit + 1);
 		entityUtil.moveNumLabelTo( // appendした箇所からの相対座標
 			label,
-			0 + label.bitmapFont.defaultGlyphWidth,
-			0 + this.labelPosOffsetY - (label.bitmapFont.defaultGlyphHeight / 2)
+			0 + font.defaultGlyphWidth,
+			0 + this.labelPosOffsetY - (font.defaultGlyphHeight / 2),
+			font
 		);
 		entityUtil.setLabelText(label, sign + String(_value)); // 符号つきテキスト
 
@@ -104,7 +105,7 @@ export class PopScore {
 		const attachment: asaEx.EntityAttachment = new asaEx.EntityAttachment(label);
 		actorPopPoint.attach(attachment, this.pivot); // ダミーアニメにアタッチ
 
-		actorPopPoint.update.handle(actorPopPoint, (): boolean => {
+		actorPopPoint.onUpdate.add((): boolean => {
 			actorPopPoint.modified();
 			actorPopPoint.calc();
 			// 自身を破棄

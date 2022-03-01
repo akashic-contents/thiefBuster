@@ -26,8 +26,7 @@ export abstract class Subscene extends g.E {
 	/**
 	 * Scene#updateを起点とする処理から呼ばれる
 	 */
-	abstract onUpdate(): void;
-
+	abstract onUpdateSubscene(): void;
 	/**
 	 * 動作を停止する
 	 * このサブシーンから遷移するワイプ演出が始まる時点で呼ばれる

@@ -2,6 +2,7 @@
 	"width": 640,
 	"height": 360,
 	"fps": 30,
+	"main": "./script/main.js",
 	"assets": {
 		"before_the_start": {
 			"type": "image",
@@ -351,11 +352,6 @@
 		"videoAssetInfoType": {
 			"type": "script",
 			"path": "script/commonTypes/videoAssetInfoType.js",
-			"global": true
-		},
-		"mainScene": {
-			"type": "script",
-			"path": "script/mainScene.js",
 			"global": true
 		},
 		"asaEx": {
@@ -941,6 +937,11 @@
 			"path": "audio/se/se_real58/se_real58",
 			"systemId": "sound",
 			"duration": 608
+		},
+		"main": {
+			"type": "script",
+			"path": "script/main.js",
+			"global": true
 		}
 	},
 	"globalScripts": [
@@ -960,7 +961,9 @@
 		"node_modules/@akashic-extension/akashic-animation/lib/CircleCollider.js",
 		"node_modules/@akashic-extension/akashic-animation/lib/CircleVolume.js",
 		"node_modules/@akashic-extension/akashic-animation/lib/Collider.js",
-		"node_modules/@akashic-extension/akashic-animation/lib/Container.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/ContainerV2.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/ContainerV3.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/Content.js",
 		"node_modules/@akashic-extension/akashic-animation/lib/FinalizedCell.js",
 		"node_modules/@akashic-extension/akashic-animation/lib/Posture.js",
 		"node_modules/@akashic-extension/akashic-animation/lib/Resource.js",
@@ -968,7 +971,12 @@
 		"node_modules/@akashic-extension/akashic-animation/lib/Skeleton.js",
 		"node_modules/@akashic-extension/akashic-animation/lib/Skin.js",
 		"node_modules/@akashic-extension/akashic-animation/lib/Vector2.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/aps/Emitter.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/aps/Particle.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/aps/ParticleSystem.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/aps/index.js",
 		"node_modules/@akashic-extension/akashic-animation/lib/index.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/vfx.js",
 		"node_modules/@akashic-extension/akashic-timeline/lib/ActionType.js",
 		"node_modules/@akashic-extension/akashic-timeline/lib/Easing.js",
 		"node_modules/@akashic-extension/akashic-timeline/lib/Timeline.js",
@@ -980,6 +988,7 @@
 		"@akashic-extension/akashic-timeline": "node_modules/@akashic-extension/akashic-timeline/lib/index.js"
 	},
 	"environment": {
+		"sandbox-runtime": "3",
 		"niconico": {
 			"supportedModes": [
 				"ranking"

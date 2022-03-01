@@ -113,9 +113,9 @@ export class MainSceneController extends SceneController {
 		// console.log("createScene: assetIds:"+assetIds.join(",")+".");
 		const scene = new g.Scene({ game: _game, assetIds: assetIds });
 		let parameters: RireGameParameters = null;
-		scene.loaded.handle((): boolean => {
+		scene.onLoad.addOnce(() => {
 			// loaded完了後、OperationEventを処理するため1 tick遅延させる
-			scene.update.handle((): boolean => {
+			scene.onUpdate.addOnce(() => {
 				// console.log("scene.update: parameters:" + parameters + ".");
 				if (parameters) {
 					// 起動パラメータの保持
@@ -126,15 +126,12 @@ export class MainSceneController extends SceneController {
 					CommonParameterReader.read({});
 				}
 				this.onLoaded(scene);
-				return true;
 			});
-			return true;
 		});
-		scene.message.handle((e: g.MessageEvent): boolean => {
+		scene.onMessage.add((e: g.MessageEvent) => {
 			// console.log("scene.message: e:" + JSON.stringify(e) + ".");
 			if (isCOESessionStartMessage(e)) {
 				parameters = (<COESessionStartMessage<RireGameParameters>>e.data).parameters;
-				return true;
 			}
 		});
 
@@ -174,27 +171,27 @@ export class MainSceneController extends SceneController {
 
 		const infoSubScene = this.informationSubscene = new InformationSubscene(_scene);
 		infoSubScene.init();
-		infoSubScene.requestedNextSubscene.handle(this, this.goNextFromInformation);
+		infoSubScene.requestedNextSubscene.add(this.goNextFromInformation, this);
 		entityUtil.appendEntity(infoSubScene, this.mainLayer);
 
 		const title = this.titleSubscene = new TitleSubscene(_scene);
 		title.init();
-		title.requestedNextSubscene.handle(this, this.goNextFromTitle);
+		title.requestedNextSubscene.add(this.goNextFromTitle, this);
 		entityUtil.appendEntity(title, this.mainLayer);
 
 		const desc = this.descriptionSubscene = new DescriptionSubscene(_scene);
 		desc.init();
-		desc.requestedNextSubscene.handle(this, this.goNextFromDescription);
+		desc.requestedNextSubscene.add(this.goNextFromDescription, this);
 		entityUtil.appendEntity(desc, this.mainLayer);
 
 		const main = this.gameSubscene = new GameSubscene(_scene);
 		main.init();
-		main.requestedNextSubscene.handle(this, this.goNextFromGame);
+		main.requestedNextSubscene.add(this.goNextFromGame, this);
 		entityUtil.appendEntity(main, this.mainLayer);
 
 		const result = this.resultSubscene = new ResultSubscene(_scene);
 		result.init();
-		result.requestedNextSubscene.handle(this, this.goNextFromResult);
+		result.requestedNextSubscene.add(this.goNextFromResult, this);
 		entityUtil.appendEntity(result, this.mainLayer);
 
 		if (CommonParameterReader.muteAudio) {
@@ -217,16 +214,14 @@ export class MainSceneController extends SceneController {
 			}
 		}
 
-		_scene.update.handle((): boolean => {
+		_scene.onUpdate.add((): boolean => {
 			return this.onUpdate(_scene);
 		});
-		_scene.stateChanged.handle((e: g.SceneState): boolean => {
-			if (e === g.SceneState.Destroyed) {
+		_scene.onStateChange.add((e: g.SceneStateString): void => {
+			if (e === "destroyed") {
 				asaEx.ResourceManager.removeAllLoadedResource();
 				delete game.vars.scenedata;
-				return true;
 			}
-			return false;
 		});
 
 		return true;
@@ -239,7 +234,7 @@ export class MainSceneController extends SceneController {
 	 * @override
 	 */
 	protected onUpdate(_scene: g.Scene): boolean {
-		this.currentSubscene.onUpdate();
+		this.currentSubscene.onUpdateSubscene();
 		return false;
 	}
 

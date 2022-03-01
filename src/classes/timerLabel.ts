@@ -92,7 +92,7 @@ export class TimerLabel extends g.E {
 
 		// 点滅時の拡大基準点
 		const label = this.labelBlack;
-		const font = label.bitmapFont;
+		const font = label.font as g.BitmapFont;
 		const pivotX = _x + (font.defaultGlyphWidth / 2);
 		const pivotY = _y + (font.defaultGlyphHeight / 2);
 		entityUtil.setXY(this.scaleLayer, pivotX, pivotY);
