@@ -75,7 +75,7 @@ export class Workman {
 	/**
 	 * ゲーム中の更新処理
 	 */
-	update(): void {
+	handleUpdate(): void {
 		if (this.flgAttack) { // 攻撃中
 			++this.cntStop;
 			// 攻撃時フレームでゴンドラ止める

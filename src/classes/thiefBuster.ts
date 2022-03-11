@@ -380,7 +380,7 @@ export class ThiefBuster extends GameBase {
 			// アイテム出現処理
 			this.popItemController();
 
-			this.wkman.update();
+			this.wkman.handleUpdate();
 			this.score.handleUpdate();
 
 			// 弾ループ

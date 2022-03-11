@@ -90,7 +90,7 @@ export class Thief {
 		this.escapeStartTrigger = new g.Trigger<void>(); // 逃げ切り用
 
 		// 周りの状況に限らずアニメの更新と移動を行う
-		this.spr.onUpdate.add(this.update, this);
+		this.spr.onUpdate.add(this.handleUpdate, this);
 	}
 
 	/**
@@ -109,7 +109,7 @@ export class Thief {
 	 * ゲーム中の更新処理
 	 * @return {boolean} 通常falseを返す
 	 */
-	update(): boolean {
+	handleUpdate(): boolean {
 		if (!this.spr.destroyed()) {
 			this.spr.x += this.moveX;
 			this.animeController();
