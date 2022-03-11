@@ -90,7 +90,7 @@ export class Score extends g.E {
 	/**
 	 * ラベルテキストの更新
 	 */
-	onLabelUpdate(): void {
+	handleUpdate(): void {
 		entityUtil.setLabelText(this.label, String(this.value));
 		this.animePlusScore();
 		if (this.value < 0) {
@@ -133,9 +133,9 @@ export class Score extends g.E {
 	/**
 	 * ゲーム終了時の処理まとめ
 	 */
-	onFinishGame(): void {
+	handleFinishGame(): void {
 		this.mergeScore(); // 残ったスタックスコアを加算
-		this.onLabelUpdate();
+		this.handleUpdate();
 		gameUtil.updateGameStateScore(this.value + this.stack);
 	}
 	/**
