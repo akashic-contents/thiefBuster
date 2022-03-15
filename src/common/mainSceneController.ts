@@ -125,7 +125,7 @@ export class MainSceneController extends SceneController {
 					scene.game.vars.parameters = {};
 					CommonParameterReader.read({});
 				}
-				this.onLoaded(scene);
+				this.handleLoaded(scene);
 			});
 		});
 		scene.onMessage.add((e: g.MessageEvent) => {
@@ -145,7 +145,7 @@ export class MainSceneController extends SceneController {
 	 * @return {boolean} 通常trueを返し、ハンドラ登録を解除する
 	 * @override
 	 */
-	protected onLoaded(_scene: g.Scene): boolean {
+	protected handleLoaded(_scene: g.Scene): boolean {
 		const game = _scene.game;
 		game.vars.scenedata = {};
 
@@ -215,7 +215,7 @@ export class MainSceneController extends SceneController {
 		}
 
 		_scene.onUpdate.add((): boolean => {
-			return this.onUpdate(_scene);
+			return this.handleUpdate(_scene);
 		});
 		_scene.onStateChange.add((e: g.SceneStateString): void => {
 			if (e === "destroyed") {
@@ -233,8 +233,8 @@ export class MainSceneController extends SceneController {
 	 * @return {boolean} 通常falseを返す
 	 * @override
 	 */
-	protected onUpdate(_scene: g.Scene): boolean {
-		this.currentSubscene.onUpdateSubscene();
+	protected handleUpdate(_scene: g.Scene): boolean {
+		this.currentSubscene.handleUpdateSubscene();
 		return false;
 	}
 

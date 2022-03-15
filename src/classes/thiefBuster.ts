@@ -298,8 +298,8 @@ export class ThiefBuster extends GameBase {
 			}
 		}
 		this.timerLabel.setTimeCount(timeLimit);
-		this.timerLabel.timeCaution.add(this.onTimeCaution, this);
-		this.timerLabel.timeCautionCancel.add(this.onTimeCautionCancel, this);
+		this.timerLabel.timeCaution.add(this.handleTimeCaution, this);
+		this.timerLabel.timeCautionCancel.add(this.handleTimeCautionCancel, this);
 
 		this.wkman.init();
 		this.item.init();
@@ -333,7 +333,7 @@ export class ThiefBuster extends GameBase {
 	 */
 	startGame(): void {
 		this.inGame = true;
-		this.scene.onPointDownCapture.add(this.onTouch, this);
+		this.scene.onPointDownCapture.add(this.handleTouch, this);
 
 		const len: number = GameParameterReader.thiefPopRates.length;
 		this.retTimeIdentifier = this.scene.setInterval(
@@ -366,7 +366,7 @@ export class ThiefBuster extends GameBase {
 	 * ゲーム画面でない期間には呼ばれない。
 	 * @override
 	 */
-	onUpdateScene(): void {
+	handleUpdateScene(): void {
 		if (this.inGame) {
 			this.timerLabel.tick();
 			if (this.timerLabel.getTimeCount() === 0) {
@@ -380,8 +380,8 @@ export class ThiefBuster extends GameBase {
 			// アイテム出現処理
 			this.popItemController();
 
-			this.wkman.update();
-			this.score.onLabelUpdate();
+			this.wkman.handleUpdate();
+			this.score.handleUpdate();
 
 			// 弾ループ
 			for (let i = 0; i < this.bullets.length; ++i) {
@@ -442,14 +442,14 @@ export class ThiefBuster extends GameBase {
 	/**
 	 * TimerLabel#timeCautionのハンドラ
 	 */
-	private onTimeCaution(): void {
+	private handleTimeCaution(): void {
 		this.timeCaution.fire();
 	}
 
 	/**
 	 * TimerLabel#timeCautionCancelのハンドラ
 	 */
-	private onTimeCautionCancel(): void {
+	private handleTimeCautionCancel(): void {
 		this.timeCautionCancel.fire();
 	}
 
@@ -467,7 +467,7 @@ export class ThiefBuster extends GameBase {
 		for (let i = 0; i < this.thieves.length; ++i) { // 泥棒ループ
 			this.thieves[i].setMoveX(); // 画面上の泥棒の移動をストップ
 		}
-		this.score.onFinishGame();
+		this.score.handleFinishGame();
 		const resultScore: number = this.score.getValue();
 		// マイナスの場合があるので明示的に0
 		gameUtil.setGameScore(resultScore < 0 ? 0 : resultScore);
@@ -486,7 +486,7 @@ export class ThiefBuster extends GameBase {
 	 * @param  {g.PointDownEvent} _e イベントパラメータ
 	 * @return {boolean}             ゲーム終了時はtrueを返す
 	 */
-	private onTouch(_e: g.PointDownEvent): boolean {
+	private handleTouch(_e: g.PointDownEvent): boolean {
 		if (!this.inGame) {
 			return true;
 		}

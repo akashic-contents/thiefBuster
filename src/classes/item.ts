@@ -90,7 +90,7 @@ export class Item {
 		);
 		entityUtil.appendEntity(this.spr, _parent);
 		// 周りの状況に限らずアニメの更新と自動消滅を行う
-		this.spr.onUpdate.add(this.update, this);
+		this.spr.onUpdate.add(this.handleUpdate, this);
 		// インスタンスは一つしか作らないのでshowとhideを繰り返す
 		entityUtil.hideEntity(this.spr);
 	}
@@ -107,7 +107,7 @@ export class Item {
 	 * ゲーム中の更新処理 this.spr.updateのハンドラ
 	 * @return {boolean} 通常falseを返す
 	 */
-	update(): boolean {
+	handleUpdate(): boolean {
 		if (!this.spr.destroyed()) {
 			this.animeController();
 			this.spr.modified();
