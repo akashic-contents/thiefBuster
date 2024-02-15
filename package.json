@@ -1,6 +1,6 @@
 {
   "name": "@akashic-contents/thiefBuster",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "description": "Akashic Engine製ゲーム・泥棒バスター",
   "main": "index.js",
